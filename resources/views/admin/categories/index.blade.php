@@ -38,14 +38,14 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('category.show', $category->id) }}" class="btn btn-sm btn-warning">
+                        <a href="{{ route('categories.show', $category->id) }}" class="btn btn-sm btn-warning">
                             <i class="bi bi-pencil-square"></i> show
                         </a>
-                        <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-warning">
+                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning">
                             <i class="bi bi-pencil-square"></i> edit
                         </a>
-                        <form action="{{ route('category.destroy', $category->id) }}" method="POST" class="d-inline"
-                              onsubmit="return confirm('Bạn có chắc muốn xóa danh mục này?');">
+                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline"
+                              onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">

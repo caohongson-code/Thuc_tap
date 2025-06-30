@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductVariant;
@@ -37,7 +38,9 @@ class ProductController extends Controller
         try {
             $path = null;
             if ($request->hasFile('hinhanh')) {
-                $path = $request->file('hinhanh')->store('products', 'public');
+                $image = $request->file('hinhanh');
+                $path = 'uploads/products/' . time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('uploads/products'), $path);
             }
             $product = Product::create([
                 'hangcosan' => $request->hangcosan,
@@ -91,7 +94,12 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             $path = $product->hinhanh;
             if ($request->hasFile('hinhanh')) {
-                $path = $request->file('hinhanh')->store('products', 'public');
+                if ($path && file_exists(public_path($path))) {
+                    unlink(public_path($path));
+                }
+                $image = $request->file('hinhanh');
+                $path = 'uploads/products/' . time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('uploads/products'), $path);
             }
             $product->update([
                 'hangcosan' => $request->hangcosan,
@@ -148,4 +156,4 @@ class ProductController extends Controller
             return back()->withErrors('Có lỗi: ' . $e->getMessage());
         }
     }
-}
+} 

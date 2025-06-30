@@ -40,7 +40,7 @@
             <label for="hinhanh" class="form-label">Hình ảnh</label>
             <input type="file" class="form-control" name="hinhanh">
             @if($product->hinhanh)
-                <img src="{{ asset('storage/' . $product->hinhanh) }}" width="120">
+                <img src="{{ asset($product->hinhanh) }}" width="120">
             @endif
         </div>
         <hr>

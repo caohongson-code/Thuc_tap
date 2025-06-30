@@ -23,7 +23,7 @@
                 <td>{{ $product->hangcosan }}</td>
                 <td>
                     @if($product->hinhanh)
-                        <img src="{{ asset('storage/' . $product->hinhanh) }}" width="80">
+                        <img src="{{ asset($product->hinhanh) }}" width="80">
                     @endif
                 </td>
                 <td>{{ $product->category->ten ?? '' }}</td>

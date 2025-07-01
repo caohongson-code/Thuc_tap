@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,9 @@ class Category extends Model
         'mieu_ta',
         'trang_thai',
     ];
-
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'id_danhmuc');
+    }
     //
 }

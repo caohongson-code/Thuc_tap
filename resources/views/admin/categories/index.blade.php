@@ -3,22 +3,29 @@
 @section('title', 'Danh sách danh mục')
 
 @section('content')
+<h1>Danh sách danh mục</h1>
 <div class="container mt-4">
-  
+    <div class="mb-3 text-start">
+        <a href="{{ route('categories.create') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Thêm danh mục
+        </a>
+    </div>
 
     @if(session('success'))
         <div class="alert alert-success text-center">
             {{ session('success') }}
         </div>
     @endif
-              <div class="mb-3">
-        <a href="" class="btn btn-success w-100">create</a>
-    </div>
-    <table class="table table-bordered table-hover shadow-sm">
+    @if(session('error'))
+        <div class="alert alert-danger text-center">
+            {{ session('error') }}
+        </div>
+    @endif
+    <table class="table table-bordered table-hover shadow-sm align-middle">
         <thead class="table-success text-center">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Tên</th>
+                <th scope="col">Tên danh mục</th>
                 <th scope="col">Mô tả</th>
                 <th scope="col">Trạng thái</th>
                 <th scope="col">Hành động</th>
@@ -32,24 +39,21 @@
                     <td>{{ $category->mieu_ta }}</td>
                     <td class="text-center">
                         @if($category->trang_thai == 'active')
-                            <span class="badge bg-success">Hoạt động</span>
+                            <span class="badge bg-success"><i class="bi bi-check-circle"></i> Hoạt động</span>
                         @else
-                            <span class="badge bg-secondary">Không hoạt động</span>
+                            <span class="badge bg-secondary"><i class="bi bi-x-circle"></i> Không hoạt động</span>
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('categories.show', $category->id) }}" class="btn btn-sm btn-warning">
-                            <i class="bi bi-pencil-square"></i> show
-                        </a>
                         <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning">
-                            <i class="bi bi-pencil-square"></i> edit
+                            <i class="bi bi-pencil-square"></i> Sửa
                         </a>
                         <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline"
                               onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">
-                                <i class="bi bi-trash"></i> delete
+                                <i class="bi bi-trash"></i> Xóa
                             </button>
                         </form>
                     </td>

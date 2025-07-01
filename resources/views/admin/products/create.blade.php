@@ -5,8 +5,8 @@
     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label for="hangcosan" class="form-label">Tên sản phẩm</label>
-            <input type="text" class="form-control" name="hangcosan" required>
+            <label for="ten_san_pham" class="form-label">Tên sản phẩm</label>
+            <input type="text" class="form-control" name="ten_san_pham" required>
         </div>
         <div class="mb-3">
             <label for="mota" class="form-label">Mô tả</label>

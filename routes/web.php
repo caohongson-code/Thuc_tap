@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/cart', function () {
+    return view('client.cart');
+})->name('cart');
 
 // Khu vực quản trị (admin)
 Route::prefix('admin')->group(function () {
@@ -19,7 +19,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('/banners',        BannerController::class);
     // Thêm các resource khác nếu cần
 });
-
 
 
 // Route::resource('/category', CategoryController::class);

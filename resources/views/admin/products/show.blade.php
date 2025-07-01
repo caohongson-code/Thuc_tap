@@ -4,7 +4,7 @@
     <h1>Chi tiết sản phẩm</h1>
     <div class="row mb-3 align-items-center">
         <div class="col-md-8">
-            <div class="mb-2"><strong>Tên sản phẩm:</strong> {{ $product->hangcosan }}</div>
+            <div class="mb-2"><strong>Tên sản phẩm:</strong> {{ $product->ten_san_pham }}</div>
             <div class="mb-2"><strong>Mô tả:</strong> {{ $product->mota }}</div>
             <div class="mb-2"><strong>Giá cơ sở:</strong> {{ $product->gia_coso }}</div>
             <div class="mb-2"><strong>Danh mục:</strong> {{ $product->category->ten ?? '' }}</div>

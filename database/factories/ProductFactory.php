@@ -19,7 +19,7 @@ class ProductFactory extends Factory
     {
         return [
             'id_danhmuc' => Category::inRandomOrder()->first()->id ?? Category::factory(),
-            'hangcosan' => $this->faker->company(),
+            'ten_san_pham' => $this->faker->company(),
             'mota' => $this->faker->paragraph(),
             'ma_hang' => $this->faker->unique()->ean8(),
             'gia_coso' => $this->faker->randomFloat(2, 50, 500),

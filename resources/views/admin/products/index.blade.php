@@ -20,7 +20,7 @@
             @foreach($products as $product)
             <tr>
                 <td>{{ $product->id }}</td>
-                <td>{{ $product->hangcosan }}</td>
+                <td>{{ $product->ten_san_pham }}</td>
                 <td>
                     @if($product->hinhanh)
                         <img src="{{ asset($product->hinhanh) }}" width="80">

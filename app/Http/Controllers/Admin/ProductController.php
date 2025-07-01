@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('trang_thai', 'active')->get();
         return view('admin.products.create', compact('categories'));
     }
 
@@ -43,7 +43,7 @@ class ProductController extends Controller
                 $image->move(public_path('uploads/products'), $path);
             }
             $product = Product::create([
-                'hangcosan' => $request->hangcosan,
+                'ten_san_pham' => $request->ten_san_pham,
                 'mota' => $request->mota,
                 'gia_coso' => $request->gia_coso,
                 'id_danhmuc' => $request->id_danhmuc,
@@ -80,7 +80,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::with('variants')->findOrFail($id);
-        $categories = Category::all();
+        $categories = Category::where('trang_thai', 'active')->get();
         return view('admin.products.edit', compact('product', 'categories'));
     }
 
@@ -102,7 +102,7 @@ class ProductController extends Controller
                 $image->move(public_path('uploads/products'), $path);
             }
             $product->update([
-                'hangcosan' => $request->hangcosan,
+                'ten_san_pham' => $request->ten_san_pham,
                 'mota' => $request->mota,
                 'gia_coso' => $request->gia_coso,
                 'id_danhmuc' => $request->id_danhmuc,

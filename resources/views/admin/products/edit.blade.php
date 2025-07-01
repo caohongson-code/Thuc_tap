@@ -6,8 +6,8 @@
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label for="hangcosan" class="form-label">Tên sản phẩm</label>
-            <input type="text" class="form-control" name="hangcosan" value="{{ $product->hangcosan }}" required>
+            <label for="ten_san_pham" class="form-label">Tên sản phẩm</label>
+            <input type="text" class="form-control" name="ten_san_pham" value="{{ $product->ten_san_pham }}" required>
         </div>
         <div class="mb-3">
             <label for="mota" class="form-label">Mô tả</label>

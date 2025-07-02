@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/cart', function () {
-    return view('client.cart');
-})->name('cart');
+Route::get('/cart', function () {return view('client.cart');})->name('cart');
+Route::get('/show/{id}', [HomeController::class, 'show'])->name('client.show');
+
 
 // Khu vực quản trị (admin)
 Route::prefix('admin')->group(function () {

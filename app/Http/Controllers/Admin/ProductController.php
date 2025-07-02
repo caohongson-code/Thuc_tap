@@ -118,7 +118,7 @@ class ProductController extends Controller
                 }
             }
             DB::commit();
-            return redirect('/admin/products')->with('success', 'Cập nhật sản phẩm thành công!');
+            return redirect('admin/products')->with('success', 'Cập nhật sản phẩm thành công!');
            
         } catch (\Exception $e) {
             DB::rollBack();

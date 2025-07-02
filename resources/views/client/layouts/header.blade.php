@@ -179,11 +179,18 @@
 
 
 <!-- Banner -->
-{{-- <section id="home-section" class="hero">
-  <div class="home-slider owl-carousel">
-    @foreach($banners as $product)
-      <div class="slider-item" style="background-image: url('{{ file_url($product['anh']) }}');"></div>
-    @endforeach
-  </div>
+<section id="home-section" class="hero">
+<div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+        @foreach($banners as $key => $banner)
+            <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                <img src="{{ asset($banner->hinh_anh) }}" class="d-block w-100" alt="Banner {{ $key + 1 }}"
+                     style="height: 450px; object-fit: cover;">
+            </div>
+        @endforeach
+    </div>
+</div>
+
+
   
-</section> --}}
+</section>

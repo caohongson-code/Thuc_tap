@@ -14,7 +14,7 @@
         </div>
         <div class="mb-3">
             <label for="gia_coso" class="form-label">Giá cơ sở</label>
-            <input type="number" class="form-control" name="gia_coso" required>
+            <input type="number" class="form-control" name="gia_coso" step="0.001" required placeholder="Nhập giá">
         </div>
         <div class="mb-3">
             <label for="id_danhmuc" class="form-label">Danh mục</label>
@@ -43,8 +43,8 @@
         <h4>Biến thể sản phẩm</h4>
         <div id="variants">
             <div class="row mb-2 variant-row">
-                <div class="col"><input type="text" name="variants[0][kich_co]" class="form-control" placeholder="Kích cỡ (VD: S, M, L)" required></div>
-                <div class="col"><input type="number" name="variants[0][gia]" class="form-control" placeholder="Giá" required></div>
+                <div class="col"><input type="number" name="variants[0][kich_co]" class="form-control" placeholder="Kích cỡ (VD: 30, 40, 50) - đơn vị cm" step="0.1" required></div>
+                <div class="col"><input type="number" name="variants[0][gia]" class="form-control" placeholder="Giá (VD: 123.000)" step="0.001" required></div>
                 <div class="col"><input type="number" name="variants[0][tonkho]" class="form-control" placeholder="Tồn kho" required></div>
                 <div class="col-auto"><button type="button" class="btn btn-danger remove-variant">X</button></div>
             </div>
@@ -57,12 +57,7 @@
 <script>
     let variantIndex = 1;
     document.getElementById('add-variant').onclick = function() {
-        let html = `<div class=\"row mb-2 variant-row\">
-            <div class=\"col\"><input type=\"text\" name=\"variants[${variantIndex}][kich_co]\" class=\"form-control\" placeholder=\"Kích cỡ (VD: S, M, L)\" required></div>
-            <div class=\"col\"><input type=\"number\" name=\"variants[${variantIndex}][gia]\" class=\"form-control\" placeholder=\"Giá\" required></div>
-            <div class=\"col\"><input type=\"number\" name=\"variants[${variantIndex}][tonkho]\" class=\"form-control\" placeholder=\"Tồn kho\" required></div>
-            <div class=\"col-auto\"><button type=\"button\" class=\"btn btn-danger remove-variant\">X</button></div>
-        </div>`;
+        let html = `<div class=\"row mb-2 variant-row\">\n            <div class=\"col\"><input type=\"number\" name=\"variants[${variantIndex}][kich_co]\" class=\"form-control\" placeholder=\"Kích cỡ (VD: 30, 40, 50) - đơn vị cm\" step=\"0.1\" required></div>\n            <div class=\"col\"><input type=\"number\" name=\"variants[${variantIndex}][gia]\" class=\"form-control\" placeholder=\"Giá (VD: 123.000)\" step=\"0.001\" required></div>\n            <div class=\"col\"><input type=\"number\" name=\"variants[${variantIndex}][tonkho]\" class=\"form-control\" placeholder=\"Tồn kho\" required></div>\n            <div class=\"col-auto\"><button type=\"button\" class=\"btn btn-danger remove-variant\">X</button></div>\n        </div>`;
         document.getElementById('variants').insertAdjacentHTML('beforeend', html);
         variantIndex++;
     };

@@ -17,13 +17,12 @@ public function login(Request $request)
 
     $user = \App\Models\User::where('email', $request->email)->first();
 
-    if ($user && \Hash::check($request->password, $user->matkhau)) {
+    if ($user && Hash::check($request->password, $user->matkhau)) {
         Auth::login($user);
 
         if ($user->vai_tro === 'admin') {
             return redirect('/admin/products');
         }
-
         return redirect('/');
     }
 
@@ -45,7 +44,7 @@ public function login(Request $request)
     ]);
 
 User::create([
-    'ten' => $request->ten ?? 'mặc định', // hoặc lấy từ input nếu có
+    'ten' => $request->ten ?? 'mặc định',
     'ho' => $request->ho,
     'email' => $request->email,
     'matkhau' => Hash::make($request->matkhau),

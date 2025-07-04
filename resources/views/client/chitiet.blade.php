@@ -1,4 +1,4 @@
-@extends('Client.layouts.main')
+@extends('client.layouts.main')
 @section('content')
 
 <div class="container py-4">
@@ -26,8 +26,10 @@
                 </span>
             </p>
 
-<form>
-    {{-- Chọn kích cỡ --}}
+<form action="" method="POST">
+    @csrf
+    <input type="hidden" name="product_id" value="{{ $product->id }}">
+    <input type="hidden" id="variant_id" name="variant_id" value="">
     <div class="mb-3">
         <label for="variantSelect"><strong>Kích cỡ:</strong></label>
         <select class="form-select" id="variantSelect" required>
@@ -41,18 +43,13 @@
             @endforeach
         </select>
     </div>
-
-    {{-- Hiển thị tồn kho khi chọn kích cỡ --}}
     <div class="mb-3" id="stockInfo" style="display: none;">
         <span class="text-muted">Tồn kho: <span id="stockValue" class="fw-bold text-success">0</span></span>
     </div>
-
-    {{-- Nhập số lượng --}}
     <div class="mb-3">
         <label for="quantity"><strong>Số lượng:</strong></label>
         <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="1" disabled >
     </div>
-
     <button type="submit" class="btn btn-danger">Thêm vào giỏ</button>
 </form>
 
@@ -87,20 +84,20 @@
     const qtyInput = document.getElementById('quantity');
     const stockInfo = document.getElementById('stockInfo');
     const stockValue = document.getElementById('stockValue');
+    const variantIdInput = document.getElementById('variant_id');
 
     select.addEventListener('change', function () {
         const selected = this.options[this.selectedIndex];
         const stock = selected.getAttribute('data-stock');
+        const variantId = selected.value;
 
         if (stock) {
-            // Gán tồn kho ra view
             stockValue.textContent = stock;
             stockInfo.style.display = 'block';
-
-            // Cập nhật input
             qtyInput.disabled = false;
             qtyInput.max = stock;
             qtyInput.value = 1;
+            variantIdInput.value = variantId;
         }
     });
 

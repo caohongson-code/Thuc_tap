@@ -72,7 +72,7 @@
                 <a href="#" class="nav-link"><i data-feather="file-text" class="me-2"></i>Đơn hàng</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link"><i data-feather="users" class="me-2"></i>Người dùng</a>
+                <a href="{{ route('users.index') }}" class="nav-link"><i data-feather="users" class="me-2"></i>Người dùng</a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('banners.index') }}" class="nav-link"><i data-feather="image" class="me-2"></i>Banner</a>

@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="mb-2"><strong>Tên sản phẩm:</strong> {{ $product->ten_san_pham }}</div>
             <div class="mb-2"><strong>Mô tả:</strong> {{ $product->mota }}</div>
-            <div class="mb-2"><strong>Giá cơ sở:</strong> {{ $product->gia_coso }}</div>
+            <div class="mb-2"><strong>Giá cơ sở:</strong> {{ number_format($product->gia_coso, 3, '.', '.') }}</div>
             <div class="mb-2"><strong>Danh mục:</strong> {{ $product->category->ten ?? '' }}</div>
             <div class="mb-2"><strong>Trạng thái:</strong> {{ $product->trang_thai }}</div>
         </div>
@@ -29,8 +29,8 @@
         <tbody>
             @foreach($product->variants as $variant)
             <tr>
-                <td>{{ $variant->kich_co }}</td>
-                <td>{{ $variant->gia }}</td>
+                <td>{{ $variant->kich_co }} cm</td>
+                <td>{{ number_format($variant->gia, 3, '.', '.') }}</td>
                 <td>{{ $variant->tonkho }}</td>
             </tr>
             @endforeach

@@ -14,7 +14,7 @@
         <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
         <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
         <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-        <li class="nav-item cta cta-colored"><a href="/giohang" class="nav-link">Giỏ hàng <span class="icon-shopping_cart"></span></a></li>
+        <li class="nav-item cta cta-colored"><a href="/cart" class="nav-link">Giỏ hàng <span class="icon-shopping_cart"></span></a></li>
 
         @auth
         <li class="nav-item dropdown">

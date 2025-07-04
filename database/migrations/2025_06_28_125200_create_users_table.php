@@ -20,7 +20,7 @@ return new class extends Migration
         $table->string('dien_thoai');
         $table->string('dia_chi');
         $table->string('thanhpho');
-        $table->string('vai_tro')->default('user');
+        $table->string('role')->default('user');
         $table->timestamps();
     });
 

@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'dien_thoai' => $this->faker->phoneNumber(),
             'dia_chi' => $this->faker->address(),
             'thanhpho' => $this->faker->city(),
-            'vai_tro' => 'user',
+            'role' => 'user',
         ];
     }
 

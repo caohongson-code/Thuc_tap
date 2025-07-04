@@ -156,6 +156,19 @@
   </div>
 </div>
 
+<!-- Banner -->
+<section id="home-section" class="hero">
+<div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+        @foreach($banners as $key => $banner)
+            <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                <img src="{{ asset($banner->hinh_anh) }}" class="d-block w-100" alt="Banner {{ $key + 1 }}"
+                     style="height: 450px; object-fit: cover;">
+            </div>
+        @endforeach
+    </div>
+</div>
+
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

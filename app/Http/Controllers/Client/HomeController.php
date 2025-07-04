@@ -44,11 +44,9 @@ public function show($id)
                               ->where('id', '!=', $product->id)
                               ->take(4) // lấy 4 sản phẩm tương tự
                               ->get();
-    
-    return view('client.chitiet', compact('product', 'relatedProducts'));
+                                $banners = Banner::all();
+
+    return view('client.chitiet', compact('product', 'relatedProducts', 'banners'));
 }
-public function banner(){
-    $banner= Banner::where('trang_thai', 'active')->get();
-    return view('client.layouts.main', compact('banner'));
-}
+
 }

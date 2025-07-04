@@ -29,4 +29,10 @@ class ProductVariant extends Model
     {
         return $this->hasMany(CartItem::class, 'id_bien');
     }
+    // App\Models\ProductVariant.php
+public function product()
+{
+    return $this->belongsTo(Product::class, 'id_sanpham');
+}
+
 }

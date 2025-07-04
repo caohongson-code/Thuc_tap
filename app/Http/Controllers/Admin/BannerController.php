@@ -31,7 +31,7 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'hinh_anh' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'hinh_anh' => 'required|image|max:2048',
             'hien_thi' => 'boolean',
         ]);
 
@@ -69,7 +69,7 @@ class BannerController extends Controller
     public function update(Request $request, Banner $banner)
     {
         $request->validate([
-            'hinh_anh' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'hinh_anh' => 'sometimes|image|max:2048',
             'hien_thi' => 'boolean',
         ]);
 

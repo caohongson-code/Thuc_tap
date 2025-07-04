@@ -1,5 +1,27 @@
 @extends('client.layouts.main')
 @section('content')
+<br>
+@foreach (['error' => 'danger', 'success' => 'success'] as $key => $type)
+    @if (session($key))
+        <div class="alert alert-{{ $type }} alert-dismissible fade show position-relative border rounded shadow-sm px-4 py-2 mx-auto" 
+             style="max-width: 500px;" role="alert">
+            {{ session($key) }}
+            <button type="button" class="btn-close position-absolute top-0 end-0 m-2" 
+                    data-bs-dismiss="alert" aria-label="Close">X</button>
+        </div>
+    @endif
+@endforeach
+
+
+
+
+
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+@endif
 
 <div class="container py-4">
     <div class="row bg-white p-4 rounded shadow-sm">
@@ -26,26 +48,31 @@
                 </span>
             </p>
 
-<form action="" method="POST">
+<form action="{{ route('cart.add') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <input type="hidden" name="product_id" value="{{ $product->id }}">
+<input type="hidden" name="id_san_pham" value="{{ $product->id }}">
     <input type="hidden" id="variant_id" name="variant_id" value="">
     <div class="mb-3">
         <label for="variantSelect"><strong>Kích cỡ:</strong></label>
         <select class="form-select" id="variantSelect" required>
             <option value="" disabled selected>-- Chọn kích cỡ --</option>
             @foreach($product->variants as $variant)
-                <option value="{{ $variant->id }}"
-                        data-price="{{ $variant->gia }}"
-                        data-stock="{{ $variant->tonkho }}">
-                    {{ $variant->kich_co }} ({{ number_format($variant->gia, 0, ',', '.') }}₫)
-                </option>
+<option value="{{ $variant->id }}"
+        data-stock="{{ $variant->tonkho }}"
+        data-price="{{ $variant->gia }}">
+    {{ $variant->kich_co }} cm
+</option>
+
             @endforeach
         </select>
     </div>
     <div class="mb-3" id="stockInfo" style="display: none;">
         <span class="text-muted">Tồn kho: <span id="stockValue" class="fw-bold text-success">0</span></span>
     </div>
+<div class="mb-3" id="priceInfo" style="display: none;">
+    <span class="text-muted">Giá: <span id="priceValue" class="fw-bold text-success">0₫</span></span>
+</div>
+
     <div class="mb-3">
         <label for="quantity"><strong>Số lượng:</strong></label>
         <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="1" disabled >
@@ -78,7 +105,6 @@
         @endforeach
     </div>
 </div>
-
 <script>
     const select = document.getElementById('variantSelect');
     const qtyInput = document.getElementById('quantity');
@@ -86,11 +112,16 @@
     const stockValue = document.getElementById('stockValue');
     const variantIdInput = document.getElementById('variant_id');
 
+    const priceInfo = document.getElementById('priceInfo');
+    const priceValue = document.getElementById('priceValue');
+
     select.addEventListener('change', function () {
         const selected = this.options[this.selectedIndex];
         const stock = selected.getAttribute('data-stock');
+        const price = selected.getAttribute('data-price');
         const variantId = selected.value;
 
+        // Hiển thị tồn kho
         if (stock) {
             stockValue.textContent = stock;
             stockInfo.style.display = 'block';
@@ -98,6 +129,13 @@
             qtyInput.max = stock;
             qtyInput.value = 1;
             variantIdInput.value = variantId;
+        }
+
+        // Hiển thị giá
+        if (price) {
+            const priceFormatted = new Intl.NumberFormat('vi-VN').format(price) + '₫';
+            priceValue.textContent = priceFormatted;
+            priceInfo.style.display = 'block';
         }
     });
 

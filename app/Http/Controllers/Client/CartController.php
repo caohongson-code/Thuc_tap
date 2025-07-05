@@ -69,6 +69,7 @@ public function addToCart(Request $request)
     $cart->save();
 
     return redirect()->route('client.show')->with('success', 'Đã thêm vào giỏ hàng');
+    
 }
 
 

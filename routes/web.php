@@ -15,8 +15,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/show/{id}', [HomeController::class, 'show'])->name('client.show');
 Route::post('/giohang/them', [CartController::class, 'addToCart'])->name('cart.add');
 
-    Route::get('/giohang', [CartController::class, 'show'])->name('cart.show');
-    Route::post('/giohang/xoa/{itemId}', [CartController::class, 'removeItem'])->name('cart.remove');
+Route::get('/giohang', [CartController::class, 'show'])->name('cart.show');
+Route::post('/giohang/xoa/{itemId}', [CartController::class, 'removeItem'])->name('cart.remove');
 
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -37,3 +37,7 @@ Route::prefix('admin')->group(function () {
 
 
 // Route::resource('/category', CategoryController::class);
+
+// Client routes
+Route::get('/categories', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('categories.index');
+Route::get('/categories/{id}', [App\Http\Controllers\Client\CategoryController::class, 'show'])->name('categories.show');

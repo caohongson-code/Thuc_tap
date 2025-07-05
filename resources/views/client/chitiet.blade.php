@@ -48,37 +48,36 @@
                 </span>
             </p>
 
-<form action="{{ route('cart.add') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-<input type="hidden" name="id_san_pham" value="{{ $product->id }}">
-    <input type="hidden" id="variant_id" name="variant_id" value="">
-    <div class="mb-3">
-        <label for="variantSelect"><strong>Kích cỡ:</strong></label>
-        <select class="form-select" id="variantSelect" required>
-            <option value="" disabled selected>-- Chọn kích cỡ --</option>
-            @foreach($product->variants as $variant)
-<option value="{{ $variant->id }}"
-        data-stock="{{ $variant->tonkho }}"
-        data-price="{{ $variant->gia }}">
-    {{ $variant->kich_co }} cm
-</option>
+                <form action="{{ route('cart.add') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                <input type="hidden" name="id_san_pham" value="{{ $product->id }}">
+                    <input type="hidden" id="variant_id" name="variant_id" value="">
+                    <div class="mb-3">
+                        <label for="variantSelect"><strong>Kích cỡ:</strong></label>
+                        <select class="form-select" id="variantSelect" required>
+                            <option value="" disabled selected>-- Chọn kích cỡ --</option>
+                            @foreach($product->variants as $variant)
+                                <option value="{{ $variant->id }}"
+                                        data-stock="{{ $variant->tonkho }}"
+                                        data-price="{{ $variant->gia }}">
+                                    {{ $variant->kich_co }} cm
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3" id="stockInfo" style="display: none;">
+                        <span class="text-muted">Tồn kho: <span id="stockValue" class="fw-bold text-success">0</span></span>
+                    </div>
+                <div class="mb-3" id="priceInfo" style="display: none;">
+                    <span class="text-muted">Giá: <span id="priceValue" class="fw-bold text-success">0₫</span></span>
+                </div>
 
-            @endforeach
-        </select>
-    </div>
-    <div class="mb-3" id="stockInfo" style="display: none;">
-        <span class="text-muted">Tồn kho: <span id="stockValue" class="fw-bold text-success">0</span></span>
-    </div>
-<div class="mb-3" id="priceInfo" style="display: none;">
-    <span class="text-muted">Giá: <span id="priceValue" class="fw-bold text-success">0₫</span></span>
-</div>
-
-    <div class="mb-3">
-        <label for="quantity"><strong>Số lượng:</strong></label>
-        <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="1" disabled >
-    </div>
-    <button type="submit" class="btn btn-danger">Thêm vào giỏ</button>
-</form>
+                    <div class="mb-3">
+                        <label for="quantity"><strong>Số lượng:</strong></label>
+                        <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="1" disabled >
+                    </div>
+                    <button type="submit" class="btn btn-danger">Thêm vào giỏ</button>
+                </form>
 
         </div>
     </div>

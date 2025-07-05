@@ -3,25 +3,18 @@
 <br>
 @foreach (['error' => 'danger', 'success' => 'success'] as $key => $type)
     @if (session($key))
-        <div class="alert alert-{{ $type }} alert-dismissible fade show position-relative border rounded shadow-sm px-4 py-2 mx-auto" 
-             style="max-width: 500px;" role="alert">
+        <div class="alert alert-{{ $type }} alert-dismissible fade show position-relative border rounded shadow-sm px-4 py-2 mx-auto text-center"
+             style="width: fit-content; min-width: 200px;" role="alert">
             {{ session($key) }}
-            <button type="button" class="btn-close position-absolute top-0 end-0 m-2" 
-                    data-bs-dismiss="alert" aria-label="Close">X</button>
+       <button type="button" class="btn-close position-absolute top-0 end-0 m-2"
+        data-bs-dismiss="alert" aria-label="Close"></button>
+
+
         </div>
     @endif
 @endforeach
 
 
-
-
-
-@if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
-    </div>
-@endif
 
 <div class="container py-4">
     <div class="row bg-white p-4 rounded shadow-sm">
@@ -48,7 +41,7 @@
                 </span>
             </p>
 
-                <form action="{{ route('cart.add') }}" method="POST" enctype="multipart/form-data">
+<form id="addToCartForm" action="{{ route('cart.add') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                 <input type="hidden" name="id_san_pham" value="{{ $product->id }}">
                     <input type="hidden" id="variant_id" name="variant_id" value="">
@@ -146,6 +139,54 @@
         if (val < 1 || isNaN(val)) this.value = 1;
     });
 </script>
+<script>
+    // ... (các đoạn đã có ở trên)
+
+    document.getElementById('addToCartForm').addEventListener('submit', function (e) {
+        const variantSelected = select.value;
+
+        if (!variantSelected) {
+            e.preventDefault(); // chặn gửi form
+            alert('Vui lòng chọn kích cỡ trước khi thêm vào giỏ hàng!');
+            select.focus();
+        }
+    });
+</script>
+
+@if(session('showLoginModal'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+            loginModal.show();
+        });
+    </script>
+@endif
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content border-success shadow">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="loginModalLabel">Đăng nhập</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('login') }}" method="POST">
+        @csrf
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Mật khẩu</label>
+            <input type="password" name="password" class="form-control" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success w-100">Đăng nhập</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 @endsection

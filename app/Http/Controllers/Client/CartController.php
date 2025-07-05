@@ -12,6 +12,10 @@ class CartController extends Controller
 {
 public function addToCart(Request $request)
 {
+        if (!Auth::check()) {
+        // Nếu chưa đăng nhập → trả về HTML modal qua redirect (flash)
+        return back()->with('showLoginModal', true);
+    }
     $userId = Auth::id();
     $productId = $request->input('id_san_pham');
     $variantId = $request->input('variant_id');
@@ -68,8 +72,8 @@ public function addToCart(Request $request)
     $cart->tong_gia += $totalPrice;
     $cart->save();
 
-    return redirect()->route('client.show')->with('success', 'Đã thêm vào giỏ hàng');
-    
+    return redirect()->route('client.show', $productId)->with('success', 'Đã thêm vào giỏ hàng');
+
 }
 
 

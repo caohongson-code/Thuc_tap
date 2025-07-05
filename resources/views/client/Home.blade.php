@@ -1,13 +1,21 @@
 @extends('client.layouts.main')
 
 @section('content')
+<br>
 <div class="container">
 <form action="{{ route('home') }}" method="GET" class="mb-4">
-    <div class="input-group">
-        <input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm..." value="{{ request('search') }}">
-        <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
+    <div class="input-group shadow-sm rounded" style="max-width: 500px; margin: 0 auto;">
+        <input type="text" name="search" class="form-control border-success" 
+               placeholder="🔍 Tìm kiếm sản phẩm..." 
+               value="{{ request('search') }}"
+               style="border-right: 0; border-radius: 30px 0 0 30px;">
+        
+        <button type="submit" class="btn btn-success px-4" style="border-radius: 0 30px 30px 0;">
+            Tìm kiếm
+        </button>
     </div>
 </form>
+
 
 
     @if(request()->get('page', 1) == 1 && !request()->filled('search'))

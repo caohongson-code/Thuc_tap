@@ -20,7 +20,7 @@ public function login(Request $request)
     if ($user && Hash::check($request->password, $user->matkhau)) {
         Auth::login($user);
 
-        if ($user->vai_tro === 'admin') {
+        if ($user->vai_tro == 'admin') {
             return redirect('/admin/products');
         }
         return redirect('/');

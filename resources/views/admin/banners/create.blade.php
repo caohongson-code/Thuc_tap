@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('banners.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.banners.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="hinh_anh" class="form-label">Banner Image</label>
@@ -25,7 +25,7 @@
             <label class="form-check-label" for="hien_thi">Visible</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="{{ route('banners.index') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('admin.banners.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 @endsection 

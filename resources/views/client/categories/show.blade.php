@@ -11,7 +11,7 @@
                 <h1 class="mb-3 bread">{{ $category->ten }}</h1>
                 <p class="breadcrumbs">
                     <span class="mr-2"><a href="{{ route('home') }}">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span>
-                    <span class="mr-2"><a href="{{ route('categories.index') }}">Danh mục <i class="ion-ios-arrow-forward"></i></a></span>
+                    <span class="mr-2"><a href="{{ route('client.categories.index') }}">Danh mục <i class="ion-ios-arrow-forward"></i></a></span>
                     <span>{{ $category->ten }}</span>
                 </p>
             </div>

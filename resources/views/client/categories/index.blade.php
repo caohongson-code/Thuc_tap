@@ -29,7 +29,7 @@
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-center">{{ $category->ten }}</h5>
                     <p class="card-text text-center text-muted">{{ $category->mieu_ta ? Str::limit($category->mieu_ta, 50) : 'Không có mô tả' }}</p>
-                    <a href="{{ route('categories.show', $category->id) }}" class="btn btn-outline-primary mt-auto mx-auto">Xem sản phẩm</a>
+                    <a href="{{ route('client.categories.show', $category->id) }}" class="btn btn-outline-primary mt-auto mx-auto">Xem sản phẩm</a>
                 </div>
             </div>
         </div>

@@ -9,11 +9,12 @@
 
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
-        <li class="nav-item active"><a href="{{ route('categories.index') }}" class="nav-link">Danh mục</a></li>
-        <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+        <li class="nav-item active"><a href="/" class="nav-link">Trang chủ</a></li>
+        @if(isset($topCategories))
+            @foreach($topCategories as $cat)
+                <li class="nav-item"><a href="{{ route('client.categories.show', $cat->id) }}" class="nav-link">{{ $cat->ten }}</a></li>
+            @endforeach
+        @endif
         <li class="nav-item cta cta-colored"><a href="{{ route('cart.show') }}" class="nav-link">Giỏ hàng <span class="icon-shopping_cart"></span></a></li>
 
         @auth

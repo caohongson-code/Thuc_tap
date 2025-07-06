@@ -63,19 +63,19 @@
                 <a href="#" class="nav-link active"><i data-feather="home" class="me-2"></i>Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('categories.index') }}" class="nav-link"><i data-feather="folder" class="me-2"></i>Danh mục</a>
+                <a href="{{ route('admin.categories.index') }}" class="nav-link"><i data-feather="folder" class="me-2"></i>Danh mục</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('products.index') }}" class="nav-link"><i data-feather="box" class="me-2"></i>Sản phẩm</a>
+                <a href="{{ route('admin.products.index') }}" class="nav-link"><i data-feather="box" class="me-2"></i>Sản phẩm</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link"><i data-feather="file-text" class="me-2"></i>Đơn hàng</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('users.index') }}" class="nav-link"><i data-feather="users" class="me-2"></i>Người dùng</a>
+                <a href="{{ route('admin.users.index') }}" class="nav-link"><i data-feather="users" class="me-2"></i>Người dùng</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('banners.index') }}" class="nav-link"><i data-feather="image" class="me-2"></i>Banner</a>
+                <a href="{{ route('admin.banners.index') }}" class="nav-link"><i data-feather="image" class="me-2"></i>Banner</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link"><i data-feather="layers" class="me-2"></i>Biến thể</a>

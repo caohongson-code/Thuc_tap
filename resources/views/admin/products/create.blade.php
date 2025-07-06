@@ -2,7 +2,18 @@
 @section('content')
 <div class="container">
     <h1>Thêm sản phẩm mới</h1>
-    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+    
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    
+    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="ten_san_pham" class="form-label">Tên sản phẩm</label>
@@ -19,8 +30,9 @@
         <div class="mb-3">
             <label for="id_danhmuc" class="form-label">Danh mục</label>
             <select class="form-control" name="id_danhmuc" required>
+                <option value="">Chọn danh mục</option>
                 @foreach($categories as $cat)
-                    <option value="{{ $cat->id }}">{{ $cat->name ?? $cat->ten ?? 'Danh mục' }}</option>
+                    <option value="{{ $cat->id }}">{{ $cat->ten }}</option>
                 @endforeach
             </select>
         </div>

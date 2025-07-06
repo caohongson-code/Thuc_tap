@@ -25,7 +25,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // Khu vực quản trị (admin)
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('/products',       ProductController::class);
     Route::resource('/categories',     CategoryController::class);
     Route::resource('/banners',        BannerController::class);
@@ -39,5 +39,9 @@ Route::prefix('admin')->group(function () {
 // Route::resource('/category', CategoryController::class);
 
 // Client routes
-Route::get('/categories', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('categories.index');
-Route::get('/categories/{id}', [App\Http\Controllers\Client\CategoryController::class, 'show'])->name('categories.show');
+Route::get('/categories', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('client.categories.index');
+Route::get('/categories/{id}', [App\Http\Controllers\Client\CategoryController::class, 'show'])->name('client.categories.show');
+
+// Trang thanh toán client
+Route::get('/checkout', [App\Http\Controllers\Client\CartController::class, 'checkoutForm'])->name('checkout.form');
+Route::post('/checkout', [App\Http\Controllers\Client\CartController::class, 'checkoutSubmit'])->name('checkout.submit');

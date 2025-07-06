@@ -34,6 +34,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation
+        $request->validate([
+            'ten_san_pham' => 'required|string|max:255',
+            'gia_coso' => 'required|numeric|min:0',
+            'id_danhmuc' => 'required|exists:categories,id',
+            'trang_thai' => 'required|in:active,inactive',
+            'hinhanh' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'variants.*.kich_co' => 'required|numeric|min:0',
+            'variants.*.gia' => 'required|numeric|min:0',
+            'variants.*.tonkho' => 'required|integer|min:0',
+        ]);
+        
         DB::beginTransaction();
         try {
             $path = null;
@@ -51,14 +63,20 @@ class ProductController extends Controller
                 'ma_hang' => $request->ma_hang,
                 'hinhanh' => $path,
             ]);
-            if ($request->variants) {
+            if ($request->variants && is_array($request->variants)) {
                 foreach ($request->variants as $variant) {
-                    $product->variants()->create($variant);
+                    if (!empty($variant['kich_co']) && !empty($variant['gia']) && !empty($variant['tonkho'])) {
+                        $product->variants()->create([
+                            'kich_co' => $variant['kich_co'],
+                            'gia' => $variant['gia'],
+                            'tonkho' => $variant['tonkho']
+                        ]);
+                    }
                 }
             }
             DB::commit();
             // return redirect()->route('admin.products.index')->with('success', 'Tạo sản phẩm thành công!');
-            return redirect('/admin/products')->with('success', 'Tạo sản phẩm thành công!');
+            return redirect()->route('admin.products.index')->with('success', 'Tạo sản phẩm thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors('Có lỗi: ' . $e->getMessage());
@@ -89,6 +107,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Validation
+        $request->validate([
+            'ten_san_pham' => 'required|string|max:255',
+            'gia_coso' => 'required|numeric|min:0',
+            'id_danhmuc' => 'required|exists:categories,id',
+            'trang_thai' => 'required|in:active,inactive',
+            'hinhanh' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'variants.*.kich_co' => 'required|numeric|min:0',
+            'variants.*.gia' => 'required|numeric|min:0',
+            'variants.*.tonkho' => 'required|integer|min:0',
+        ]);
+        
         DB::beginTransaction();
         try {
             $product = Product::findOrFail($id);
@@ -110,15 +140,55 @@ class ProductController extends Controller
                 'ma_hang' => $request->ma_hang,
                 'hinhanh' => $path,
             ]);
-            // Xử lý biến thể
-            $product->variants()->delete();
-            if ($request->variants) {
-                foreach ($request->variants as $variant) {
-                    $product->variants()->create($variant);
+            // Xử lý biến thể - cập nhật thay vì xóa và tạo lại
+            $existingVariants = $product->variants;
+            $updatedVariantIds = [];
+            
+            if ($request->variants && is_array($request->variants)) {
+                foreach ($request->variants as $index => $variant) {
+                    if (!empty($variant['kich_co']) && !empty($variant['gia']) && !empty($variant['tonkho'])) {
+                        // Nếu có variant hiện tại với index này, cập nhật nó
+                        if (isset($existingVariants[$index])) {
+                            $existingVariants[$index]->update([
+                                'kich_co' => $variant['kich_co'],
+                                'gia' => $variant['gia'],
+                                'tonkho' => $variant['tonkho']
+                            ]);
+                            $updatedVariantIds[] = $existingVariants[$index]->id;
+                        } else {
+                            // Tạo variant mới
+                            $newVariant = $product->variants()->create([
+                                'kich_co' => $variant['kich_co'],
+                                'gia' => $variant['gia'],
+                                'tonkho' => $variant['tonkho']
+                            ]);
+                            $updatedVariantIds[] = $newVariant->id;
+                        }
+                    }
+                }
+            }
+            
+            // Xóa các variants không còn được sử dụng (chỉ xóa những variant không có trong cartitems)
+            $cannotDeleteVariants = [];
+            foreach ($existingVariants as $existingVariant) {
+                if (!in_array($existingVariant->id, $updatedVariantIds)) {
+                    // Kiểm tra xem variant có được sử dụng trong cartitems không
+                    $hasCartItems = $existingVariant->cartItems()->exists();
+                    if (!$hasCartItems) {
+                        $existingVariant->delete();
+                    } else {
+                        $cannotDeleteVariants[] = $existingVariant->kich_co;
+                    }
                 }
             }
             DB::commit();
-            return redirect('admin/products')->with('success', 'Cập nhật sản phẩm thành công!');
+            
+            $message = 'Cập nhật sản phẩm thành công!';
+            if (!empty($cannotDeleteVariants)) {
+                $message .= ' Lưu ý: Một số biến thể (kích cỡ: ' . implode(', ', $cannotDeleteVariants) . ') không thể xóa vì đang được sử dụng trong giỏ hàng.';
+            }
+            
+            return redirect()->route('admin.products.index')->with('success', $message);
            
         } catch (\Exception $e) {
             DB::rollBack();
@@ -150,7 +220,7 @@ class ProductController extends Controller
             $product->delete();
             DB::commit();
             
-            return redirect('/admin/products')->with('success', 'Đã xóa sản phẩm!!');
+            return redirect()->route('admin.products.index')->with('success', 'Đã xóa sản phẩm!!');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors('Có lỗi: ' . $e->getMessage());

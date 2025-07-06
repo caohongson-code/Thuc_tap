@@ -57,7 +57,7 @@
         <div class="col-md-4">
             <div class="card p-3 shadow-sm">
                 <h5 class="mb-3">Tổng cộng: <span class="text-success">{{ number_format($tongTien, 0, ',', '.') }}₫</span></h5>
-                <button class="btn btn-success w-100">Tiến hành thanh toán</button>
+                <a href="{{ route('checkout.form') }}" class="btn btn-success w-100">Tiến hành thanh toán</a>
             </div>
         </div>
     </div>

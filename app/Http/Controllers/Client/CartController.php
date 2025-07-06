@@ -90,4 +90,56 @@ public function show()
     return view('client.cart', compact('carts', 'banners'));
 }
 
+public function checkoutForm(Request $request)
+{
+    $userId = Auth::id();
+    $carts = Cart::where('id_KH', $userId)
+        ->with('items.variant.product')
+        ->get();
+    $banners = Banner::all();
+    $user = Auth::user();
+    return view('client.checkout', compact('carts', 'banners', 'user'));
+}
+
+public function checkoutSubmit(Request $request)
+{
+    $userId = Auth::id();
+    $request->validate([
+        'ten' => 'required|string|max:255',
+        'sdt' => 'required|string|max:20',
+        'diachi' => 'required|string|max:255',
+        'ghichu' => 'nullable|string|max:500',
+    ]);
+    $carts = Cart::where('id_KH', $userId)->with('items')->get();
+    if ($carts->isEmpty()) {
+        return back()->with('error', 'Giỏ hàng của bạn đang trống!');
+    }
+    // Tạo đơn hàng (Order) và các OrderItem
+    $order = \App\Models\Order::create([
+        'id_KH' => $userId,
+        'ten' => $request->ten,
+        'sdt' => $request->sdt,
+        'diachi' => $request->diachi,
+        'ghichu' => $request->ghichu,
+        'tong_gia' => $carts->sum('tong_gia'),
+        'trang_thai' => 'pending',
+    ]);
+    foreach ($carts as $cart) {
+        foreach ($cart->items as $item) {
+            \App\Models\OrderItem::create([
+                'id_donhang' => $order->id,
+                'id_sanpham' => $item->id_sanpham,
+                'id_bien' => $item->id_bien,
+                'so_luong' => $item->so_luong,
+                'gia' => $item->gia,
+                'tong_gia' => $item->tong_gia,
+            ]);
+        }
+        // Xóa giỏ hàng và item sau khi đặt hàng
+        $cart->items()->delete();
+        $cart->delete();
+    }
+    return redirect()->route('home')->with('success', 'Đặt hàng thành công!');
+}
+
 }

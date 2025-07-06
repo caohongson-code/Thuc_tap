@@ -36,7 +36,7 @@
             @endforeach
         </tbody>
     </table>
-    <a href="{{ route('products.index') }}" class="btn btn-secondary">Quay lại</a>
-    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Sửa</a>
+    <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Quay lại</a>
+<a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-warning">Sửa</a>
 </div>
 @endsection 

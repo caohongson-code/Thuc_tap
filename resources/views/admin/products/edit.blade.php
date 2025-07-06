@@ -2,7 +2,18 @@
 @section('content')
 <div class="container">
     <h1>Sửa sản phẩm</h1>
-    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+    
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    
+    <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -20,8 +31,9 @@
         <div class="mb-3">
             <label for="id_danhmuc" class="form-label">Danh mục</label>
             <select class="form-control" name="id_danhmuc" required>
+                <option value="">Chọn danh mục</option>
                 @foreach($categories as $cat)
-                    <option value="{{ $cat->id }}" @if($cat->id == $product->id_danhmuc) selected @endif>{{ $cat->name ?? $cat->ten ?? 'Danh mục' }}</option>
+                    <option value="{{ $cat->id }}" @if($cat->id == $product->id_danhmuc) selected @endif>{{ $cat->ten }}</option>
                 @endforeach
             </select>
         </div>

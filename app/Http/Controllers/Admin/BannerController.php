@@ -44,7 +44,7 @@ class BannerController extends Controller
             'hien_thi' => $request->input('hien_thi', 0),
         ]);
 
-        return redirect()->route('banners.index')->with('success', 'Banner created successfully.');
+        return redirect()->route('admin.banners.index')->with('success', 'Banner created successfully.');
     }
 
     /**
@@ -92,7 +92,7 @@ class BannerController extends Controller
 
         $banner->update($data);
 
-        return redirect()->route('banners.index')->with('success', 'Banner updated successfully.');
+        return redirect()->route('admin.banners.index')->with('success', 'Banner updated successfully.');
     }
 
     /**
@@ -104,6 +104,6 @@ class BannerController extends Controller
             unlink(public_path($banner->hinh_anh));
         }
         $banner->delete();
-        return redirect()->route('banners.index')->with('success', 'Banner deleted successfully.');
+        return redirect()->route('admin.banners.index')->with('success', 'Banner deleted successfully.');
     }
 }

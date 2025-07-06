@@ -6,7 +6,7 @@
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Thêm tài khoản mới</a>
+    <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">Thêm tài khoản mới</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -33,8 +33,8 @@
                     <td>{{ $user->thanhpho }}</td>
                     <td>{{ $user->vai_tro }}</td>
                     <td>
-                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">Sửa</a>
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?');">
+                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-warning">Sửa</a>
+<form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Xóa</button>

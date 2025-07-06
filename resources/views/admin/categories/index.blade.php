@@ -6,7 +6,7 @@
 <h1>Danh sách danh mục</h1>
 <div class="container mt-4">
     <div class="mb-3 text-start">
-        <a href="{{ route('categories.create') }}" class="btn btn-success">
+        <a href="{{ route('admin.categories.create') }}" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Thêm danh mục
         </a>
     </div>
@@ -45,10 +45,10 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning">
+                        <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-warning">
                             <i class="bi bi-pencil-square"></i> Sửa
                         </a>
-                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline"
+                        <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" class="d-inline"
                               onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
                             @csrf
                             @method('DELETE')

@@ -45,7 +45,7 @@ class UserController extends Controller
             'thanhpho' => $request->thanhpho,
             'vai_tro' => $request->vai_tro,
         ]);
-        return redirect()->route('users.index')->with('success', 'Tạo tài khoản thành công!');
+        return redirect()->route('admin.users.index')->with('success', 'Tạo tài khoản thành công!');
     }
 
     // Hiển thị form sửa user
@@ -73,7 +73,7 @@ class UserController extends Controller
             $data['matkhau'] = Hash::make($request->matkhau);
         }
         $user->update($data);
-        return redirect()->route('users.index')->with('success', 'Cập nhật tài khoản thành công!');
+        return redirect()->route('admin.users.index')->with('success', 'Cập nhật tài khoản thành công!');
     }
 
     // Xóa user
@@ -81,6 +81,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'Xóa tài khoản thành công!');
+        return redirect()->route('admin.users.index')->with('success', 'Xóa tài khoản thành công!');
     }
 } 

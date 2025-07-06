@@ -12,7 +12,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('users.store') }}" method="POST">
+    <form action="{{ route('admin.users.store') }}" method="POST">
         @csrf
         <div class="mb-3">
             <label for="ho" class="form-label">Họ</label>
@@ -50,7 +50,7 @@
             </select>
         </div>
         <button type="submit" class="btn btn-success">Tạo tài khoản</button>
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">Quay lại</a>
+        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Quay lại</a>
     </form>
 </div>
 @endsection 

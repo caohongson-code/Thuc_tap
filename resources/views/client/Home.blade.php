@@ -2,6 +2,18 @@
 
 @section('content')
 <br>
+@if(session('success'))
+    <div class="alert alert-success text-center">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger text-center">
+        {{ session('error') }}
+    </div>
+@endif
+
 <div class="container">
 <form action="{{ route('home') }}" method="GET" class="mb-4">
     <div class="input-group shadow-sm rounded" style="max-width: 500px; margin: 0 auto;">

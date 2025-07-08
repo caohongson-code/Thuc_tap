@@ -22,6 +22,11 @@ class CartItem extends Model
         return $this->belongsTo(ProductVariant::class, 'id_bien');
     }
 
+    public function cart()
+{
+    return $this->belongsTo(Cart::class, 'id_giohang');
+}
+
 }
 
 

@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            if (Schema::hasColumn('users', 'vai_tro')) {
-                $table->dropColumn('vai_tro');
-            }
-            $table->string('role')->default('user')->after('email');
-        });
+Schema::table('users', function (Blueprint $table) {
+    if (Schema::hasColumn('users', 'vai_tro')) {
+        $table->dropColumn('vai_tro');
+    }
+
+    if (!Schema::hasColumn('users', 'role')) {
+        $table->string('role')->default('user')->after('email');
+    }
+});
+
     }
 
     /**

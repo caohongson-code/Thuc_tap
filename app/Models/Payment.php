@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    use HasFactory;
-    //
+    protected $table = 'payments';
+    protected $fillable = [
+        'phuongthuc_thanhtoan', 'trangthai_thanhtoan', 'sotien_thanhtoan', 'ngay_thanh_toan'
+    ];
 }

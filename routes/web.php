@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Client\OrderController;
+use App\Http\Controllers\Admin\StatisticsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -39,6 +40,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('/categories',     CategoryController::class);
     Route::resource('/banners',        BannerController::class);
     Route::resource('/users',UserController::class);
+    Route::resource('/statistics', StatisticsController::class);
+
     
 
     // Thêm các resource khác nếu cần

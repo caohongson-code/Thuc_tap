@@ -81,7 +81,7 @@
                 <a href="#" class="nav-link"><i data-feather="layers" class="me-2"></i>Biến thể</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link"><i data-feather="bar-chart-2" class="me-2"></i>Thống kê</a>
+                <a href="{{ route('admin.statistics.index') }}" class="nav-link"><i data-feather="bar-chart-2" class="me-2"></i>Thống kê</a>
             </li>
         </ul>
     </div>

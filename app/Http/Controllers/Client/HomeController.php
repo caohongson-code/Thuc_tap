@@ -26,7 +26,7 @@ public function index(Request $request)
     // Chỉ hiện sản phẩm hot nếu KHÔNG tìm kiếm
     $latestProducts = ($request->has('search') && $request->search != '')
         ? collect()
-        : Product::orderBy('id', 'desc')->take(4)->get();
+        : Product::orderBy('id', 'asc')->take(4)->get();
 
     $banners = Banner::all();
 

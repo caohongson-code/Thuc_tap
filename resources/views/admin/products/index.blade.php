@@ -31,7 +31,7 @@
                 <td>{{ $product->trang_thai }}</td>
                 <td>
                     @foreach($product->variants as $variant)
-                        <div>Size: {{ $variant->kich_co }} cm, Giá: {{ number_format($variant->gia, 3, '.', '.') }}, Tồn kho: {{ $variant->tonkho }}</div>
+                        <div>Size: {{ $variant->kich_co }} cm, Giá: {{ number_format($variant->gia, 0, '.', '.') }}, Tồn kho: {{ $variant->tonkho }}</div>
                     @endforeach
                 </td>
                 <td>

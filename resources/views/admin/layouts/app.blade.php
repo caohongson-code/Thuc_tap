@@ -69,7 +69,7 @@
                 <a href="{{ route('admin.products.index') }}" class="nav-link"><i data-feather="box" class="me-2"></i>Sản phẩm</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link"><i data-feather="file-text" class="me-2"></i>Đơn hàng</a>
+                <a href="{{ route('admin.orders.index') }}" class="nav-link"><i data-feather="file-text" class="me-2"></i>Đơn hàng</a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('admin.users.index') }}" class="nav-link"><i data-feather="users" class="me-2"></i>Người dùng</a>
@@ -77,9 +77,9 @@
             <li class="nav-item">
                 <a href="{{ route('admin.banners.index') }}" class="nav-link"><i data-feather="image" class="me-2"></i>Banner</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="#" class="nav-link"><i data-feather="layers" class="me-2"></i>Biến thể</a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a href="{{ route('admin.statistics.index') }}" class="nav-link"><i data-feather="bar-chart-2" class="me-2"></i>Thống kê</a>
             </li>

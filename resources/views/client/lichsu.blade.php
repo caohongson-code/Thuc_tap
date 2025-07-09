@@ -45,6 +45,7 @@
             'davanchuyen' => 'Đã vận chuyển',
             'danggiao' => 'Đang giao hàng',
             'thanhcong' => 'Giao hàng thành công',
+            'hoan_thanh' => 'Hoàn thành',
             'huy' => 'Huỷ thành công',
         ];
 
@@ -55,7 +56,7 @@
             'daxacnhan' => 'info',
             'davanchuyen', 'primary',
             'daggiao', 'dangiao' => 'primary',
-            'thanhcong' => 'success',
+            'thanhcong', 'hoan_thanh' => 'success',
             'huy' => 'danger',
             default => 'secondary',
         };
@@ -73,6 +74,14 @@
             @csrf
             <button type="submit" class="btn btn-sm btn-outline-danger">
                 <i class="fas fa-times-circle"></i> Huỷ đơn
+            </button>
+        </form>
+    @endif
+    @if($order['trangthai'] == 'da_giao_hang')
+        <form method="POST" action="{{ route('orders.confirmReceived', $order['id']) }}" class="d-inline" onsubmit="return confirm('Bạn chắc chắn đã nhận được hàng?')">
+            @csrf
+            <button type="submit" class="btn btn-sm btn-success">
+                Tôi đã nhận hàng
             </button>
         </form>
     @endif

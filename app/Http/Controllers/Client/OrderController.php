@@ -59,6 +59,19 @@ $order->trangthai = 'huy';
 $order->save();
         return back()->with('success', 'Đơn hàng đã được huỷ.');
     }
+
+    public function confirmReceived($id)
+    {
+        $order = \App\Models\Order::where('id', $id)
+            ->where('id_KH', \Auth::id())
+            ->where('trangthai', 'da_giao_hang')
+            ->firstOrFail();
+
+        $order->trangthai = 'hoan_thanh';
+        $order->save();
+
+        return back()->with('success', 'Cảm ơn bạn đã xác nhận đã nhận hàng!');
+    }
 }
 
 

@@ -23,7 +23,7 @@
            {{ Auth::user()->ho }}  {{ Auth::user()->ten }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-            <li><a class="dropdown-item" href="/lich-su-don-hang">Lịch sử đơn hàng</a></li>
+            <li><a class="dropdown-item" href="{{ route('orders.history') }}">Lịch sử đơn hàng</a></li>
             <li><a class="dropdown-item" href="{{ route('logout') }}">Đăng xuất</a></li>
           </ul>
         </li>

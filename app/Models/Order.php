@@ -21,11 +21,20 @@ class Order extends Model
         'trangthai',
     ];
 
-public function items()
+public function user()
+{
+    return $this->belongsTo(User::class, 'id_KH');
+}
+
+public function orderItems()
 {
     return $this->hasMany(\App\Models\OrderItem::class, 'id_dathang');
 }
 
+public function items()
+{
+    return $this->hasMany(\App\Models\OrderItem::class, 'id_dathang');
+}
 }
 
 

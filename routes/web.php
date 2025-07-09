@@ -28,6 +28,7 @@ Route::post('/giohang/xoa/{itemId}', [CartController::class, 'removeItem'])->nam
 Route::get('/orders/history', [OrderController::class, 'history'])->name('orders.history');
 
 Route::post('/cancel-order/{id}', [OrderController::class, 'cancel'])->name('orders.cancel');
+Route::post('/orders/{order}/confirm', [OrderController::class, 'confirmReceived'])->name('orders.confirmReceived');
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -39,10 +40,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('/products',       ProductController::class);
     Route::resource('/categories',     CategoryController::class);
     Route::resource('/banners',        BannerController::class);
-    Route::resource('/users',UserController::class);
-    Route::resource('/statistics', StatisticsController::class);
+    Route::resource('/users',          UserController::class);
+    Route::resource('/statistics',     StatisticsController::class);
+    Route::get('orders', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{order}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
+    Route::patch('orders/{order}/status', [App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
-    
 
     // Thêm các resource khác nếu cần
 });

@@ -50,7 +50,7 @@ class OrderController extends Controller
     {
         $order = Order::where('id', $id)->where('id_KH', Auth::id())->firstOrFail();
 
-  if (!in_array($order->trangthai, ['choxuly', 'daxacnhan', 'davanchuyen'])) {
+    if (!in_array($order->trangthai, ['choxuly', 'daxacnhan', 'davanchuyen'])) {
     return back()->with('error', 'Không thể huỷ đơn hàng ở trạng thái hiện tại!');
 }
 
@@ -63,11 +63,11 @@ $order->save();
     public function confirmReceived($id)
     {
         $order = \App\Models\Order::where('id', $id)
-            ->where('id_KH', \Auth::id())
-            ->where('trangthai', 'da_giao_hang')
+            ->where('id_KH', Auth::id())
+            ->where('trangthai', 'danggiao')
             ->firstOrFail();
 
-        $order->trangthai = 'hoan_thanh';
+        $order->trangthai = 'thanhcong';
         $order->save();
 
         return back()->with('success', 'Cảm ơn bạn đã xác nhận đã nhận hàng!');

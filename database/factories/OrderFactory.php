@@ -28,7 +28,7 @@ class OrderFactory extends Factory
             'tong_gia' => $this->faker->randomFloat(2, 100, 2000),
             'dia_chi' => $this->faker->address(),
             'vanchuyen_thanhpho' => $this->faker->city(),
-            'trangthai' => $this->faker->randomElement(['choxuly', 'danggiao', 'dagiao', 'huy']),
+            'trangthai' => $this->faker->randomElement(['choxuly', 'daxacnhan', 'davanchuyen', 'danggiao', 'thanhcong', 'huy']),
         ];
     }
 }

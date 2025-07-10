@@ -27,7 +27,19 @@
                 <td>{{ $order->dia_chi }}</td>
                 <td>{{ number_format($order->tong_gia, 0, ',', '.') }}₫</td>
                 <td>
-                    <span class="badge bg-info">{{ $order->trangthai }}</span>
+                    @if($order->trangthai == 'choxuly')
+                        <span class="badge bg-warning">Chờ xử lý</span>
+                    @elseif($order->trangthai == 'daxacnhan')
+                        <span class="badge bg-success">Đã xác nhận</span>
+                    @elseif($order->trangthai == 'davanchuyen')
+                        <span class="badge bg-info">Đang vận chuyển</span>
+                    @elseif($order->trangthai == 'danggiao')
+                        <span class="badge bg-primary">Đang giao</span>
+                    @elseif($order->trangthai == 'thanhcong')
+                        <span class="badge bg-success">Thành công</span>
+                    @elseif($order->trangthai == 'huy')
+                        <span class="badge bg-danger">Đã hủy</span>
+                    @endif
                 </td>
                 <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
                 <td>

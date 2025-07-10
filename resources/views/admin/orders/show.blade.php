@@ -9,28 +9,6 @@
     <p><strong>Khách hàng:</strong> {{ $order->ten }} ({{ $order->email }})</p>
     <p><strong>Điện thoại:</strong> {{ $order->dien_thoai }}</p>
     <p><strong>Địa chỉ:</strong> {{ $order->dia_chi }}</p>
-    @php
-        $statusLabels = [
-            'cho_xac_nhan' => 'Chờ xác nhận',
-            'da_xac_nhan' => 'Đã xác nhận',
-            'chuan_bi_hang' => 'Đang chuẩn bị hàng',
-            'dang_giao_hang' => 'Đang giao hàng',
-            'da_giao_hang' => 'Đã giao hàng',
-            'tra_hang' => 'Trả hàng / Hoàn tiền',
-            'da_huy' => 'Đã huỷ',
-        ];
-        $nextStatus = [
-            'cho_xac_nhan' => ['da_xac_nhan', 'da_huy'],
-            'da_xac_nhan' => ['chuan_bi_hang', 'da_huy'],
-            'chuan_bi_hang' => ['dang_giao_hang', 'da_huy'],
-            'dang_giao_hang' => ['da_giao_hang', 'da_huy'],
-            'da_giao_hang' => ['tra_hang', 'da_huy'],
-            'tra_hang' => [],
-            'da_huy' => [],
-        ];
-        $current = $order->trangthai;
-        $allowed = array_merge([$current], $nextStatus[$current] ?? []);
-    @endphp
     <p><strong>Trạng thái:</strong> <span class="badge bg-info">{{ $statusLabels[$order->trangthai] ?? $order->trangthai }}</span></p>
     <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST" class="mb-3">
         @csrf

@@ -17,7 +17,25 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $order->load(['user', 'orderItems.product']);
-        return view('admin.orders.show', compact('order'));
+        $statusLabels = [
+            'choxuly' => 'Chờ xử lý',
+            'daxacnhan' => 'Đã xác nhận',
+            'davanchuyen' => 'Đã vận chuyển',
+            'danggiao' => 'Đang giao hàng',
+            'thanhcong' => 'Giao hàng thành công',
+            'huy' => 'Huỷ'
+        ];
+        $nextStatus = [
+            'choxuly' => ['daxacnhan', 'huy'],
+            'daxacnhan' => ['davanchuyen', 'huy'],
+            'davanchuyen' => ['danggiao', 'huy'],
+            'danggiao' => ['thanhcong', 'huy'],
+            'thanhcong' => [],
+            'huy' => [],
+        ];
+        $current = $order->trangthai;
+        $allowed = array_merge([$current], $nextStatus[$current] ?? []);
+        return view('admin.orders.show', compact('order', 'allowed', 'statusLabels'));
     }
 
     public function updateStatus(Request $request, Order $order)
@@ -27,13 +45,12 @@ class OrderController extends Controller
         ]);
 
         $nextStatus = [
-            'cho_xac_nhan' => ['da_xac_nhan', 'da_huy'],
-            'da_xac_nhan' => ['chuan_bi_hang', 'da_huy'],
-            'chuan_bi_hang' => ['dang_giao_hang', 'da_huy'],
-            'dang_giao_hang' => ['da_giao_hang', 'da_huy'],
-            'da_giao_hang' => ['tra_hang', 'da_huy'],
-            'tra_hang' => [],
-            'da_huy' => [],
+            'choxuly' => ['daxacnhan', 'huy'],
+            'daxacnhan' => ['davanchuyen', 'huy'],
+            'davanchuyen' => ['danggiao', 'huy'],
+            'danggiao' => ['thanhcong', 'huy'],
+            'thanhcong' => [],
+            'huy' => [],
         ];
         $current = $order->trangthai;
         $allowed = array_merge([$current], $nextStatus[$current] ?? []);

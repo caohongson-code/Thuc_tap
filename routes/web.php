@@ -10,6 +10,7 @@ use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Admin\StatisticsController;
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,19 +37,23 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // Khu vực quản trị (admin)
-Route::prefix('admin')->name('admin.')->group(function () {
+
+
+Route::prefix('admin')->name('admin.')->middleware(AdminMiddleware::class)->group(function () {
+    Route::get('/', [StatisticsController::class, 'index'])->name('dashboard');
+    Route::get('/client', [HomeController::class, 'index'])->name('home');
     Route::resource('/products',       ProductController::class);
     Route::resource('/categories',     CategoryController::class);
     Route::resource('/banners',        BannerController::class);
     Route::resource('/users',          UserController::class);
     Route::resource('/statistics',     StatisticsController::class);
+
     Route::get('orders', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/{order}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');
     Route::patch('orders/{order}/status', [App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.updateStatus');
-
-
-    // Thêm các resource khác nếu cần
 });
+
+
 
 
 // Route::resource('/category', CategoryController::class);

@@ -29,6 +29,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>Hình ảnh</th>
                 <th>Tên sản phẩm</th>
                 <th>Kích cỡ</th>
                 <th>Số lượng</th>
@@ -39,6 +40,24 @@
         <tbody>
             @foreach($order->orderItems as $item)
             <tr>
+                
+                
+                @php
+    $product = $item->product ?: optional($item->variant)->product;
+    $image = $product?->hinhanh;
+    $imagePath = $image ? asset('/' . ltrim($image, '/')) : null;
+    
+@endphp
+
+
+<td>
+    @if($imagePath)
+        <img src="{{ $imagePath }}" alt="Ảnh sản phẩm" style="width: 80px;">
+    @else
+        <span>Không có ảnh</span>
+    @endif
+</td>
+
                 <td>{{ $item->product->ten_san_pham ?? ($item->variant->product->ten_san_pham ?? '') }}</td>
                 <td>{{ $item->variant->kich_co ?? '' }}</td>
                 <td>{{ $item->soluong }}</td>

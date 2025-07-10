@@ -20,11 +20,14 @@ public function login(Request $request)
     if ($user && Hash::check($request->password, $user->matkhau)) {
         Auth::login($user);
 
-        if ($user->vai_tro == 'admin') {
+        if ($user->vai_tro === 'admin') {
             return redirect('/admin/products');
         }
-        return redirect('/');
+         else {
+            return redirect('/');
+        }
     }
+    
 
     return back()->with('modal', 'login')->withErrors([
         'email' => 'Email hoặc mật khẩu không đúng.',

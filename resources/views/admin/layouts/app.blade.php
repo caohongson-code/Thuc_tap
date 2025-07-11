@@ -60,7 +60,7 @@
         </a>
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-                <a href="#" class="nav-link active"><i data-feather="home" class="me-2"></i>Dashboard</a>
+                <a href="{{ route('admin.dashboard') }}" class="nav-link active"><i data-feather="home" class="me-2"></i>Dashboard</a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('admin.categories.index') }}" class="nav-link"><i data-feather="folder" class="me-2"></i>Danh mục</a>
@@ -77,11 +77,12 @@
             <li class="nav-item">
                 <a href="{{ route('admin.banners.index') }}" class="nav-link"><i data-feather="image" class="me-2"></i>Banner</a>
             </li>
-            {{-- <li class="nav-item">
-                <a href="#" class="nav-link"><i data-feather="layers" class="me-2"></i>Biến thể</a>
-            </li> --}}
+ <a href="{{ route('home') }}" class="nav-link">
+    <i data-feather="home" class="me-2"></i>Trang khách
+</a>
+
             <li class="nav-item">
-                <a href="{{ route('admin.statistics.index') }}" class="nav-link"><i data-feather="bar-chart-2" class="me-2"></i>Thống kê</a>
+                <a href="{{ route('logout') }}" class="nav-link"><i data-feather="log-out" class="me-2"></i>Đăng xuất</a>
             </li>
         </ul>
     </div>

@@ -11,6 +11,8 @@ class StatisticsController extends Controller
 {
     public function index(Request $request)
     {
+          $totalOrders = Order::count();
+    $totalRevenue = Order::where('trangthai', 'thanhcong')->sum('tong_gia');
         $type = $request->get('type', 'week');
         $labels = [];
         $dataRange = [];
@@ -82,7 +84,9 @@ class StatisticsController extends Controller
             'type' => $type,
             'labels' => $labels,
             'datasets' => $datasets,
-            'statusLabels' => $statusLabels
+            'statusLabels' => $statusLabels,
+            'totalOrders' => $totalOrders,
+            'totalRevenue' => $totalRevenue
         ]);
     }
 }

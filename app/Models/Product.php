@@ -43,6 +43,11 @@ class Product extends Model
     {
         return $this->hasMany(OrderItem::class, 'id_sanpham');
     }
+    public function comments()
+{
+    return $this->hasMany(Comment::class, 'id_sanpham');
+}
+
 
     
 }

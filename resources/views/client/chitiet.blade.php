@@ -78,6 +78,46 @@
     <div class="mt-4">
         <p>{{ $product->mota }}</p>
 </div>
+@if (Auth::check())
+<form action="{{ route('comments.store') }}" method="POST" class="mb-3">
+    @csrf
+    <input type="hidden" name="id_sanpham" value="{{ $product->id }}">
+    
+    <div class="mb-2">
+        <textarea name="noi_dung" class="form-control form-control-sm" rows="2" placeholder="Viết bình luận..." required></textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-sm btn-success">Gửi bình luận</button>
+</form>
+
+@endif
+@foreach($product->comments as $comment)
+    <div class="card mb-3 shadow-sm">
+        <div class="card-body d-flex justify-content-between align-items-start flex-wrap">
+            <div class="me-3" style="flex: 1;">
+                <h6 class="mb-1 text-primary">
+                    <i class="fas fa-user me-1"></i>
+                    {{ $comment->user->ho }} {{ $comment->user->ten }}
+                    <small class="text-muted d-block">{{ $comment->created_at->format('d/m/Y H:i') }}</small>
+                </h6>
+                <p class="mb-0">{{ $comment->noi_dung }}</p>
+            </div>
+
+            @if(auth()->id() === $comment->id_KH)
+                <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc muốn xoá bình luận?')">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-sm btn-outline-danger mt-1">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            @endif
+        </div>
+    </div>
+@endforeach
+
+
+
 <div class="container mt-5">
     <h4 class="mb-4 text-success">Sản phẩm tương tự</h4>
     <div class="row">

@@ -21,6 +21,11 @@ public function variant()
 {
     return $this->belongsTo(\App\Models\ProductVariant::class, 'id_bienthe');
 }
+public function order()
+{
+    return $this->belongsTo(Order::class, 'id_dathang');
+}
+
 
 }
 

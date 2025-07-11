@@ -26,6 +26,9 @@
 
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <li><a class="dropdown-item" href="{{ route('orders.history') }}">Lịch sử đơn hàng</a></li>
+
+             <li><a class="dropdown-item" href="{{ route('logout') }}">Đăng xuất</a></li>
+
             <li>          @if (Auth::user()->vai_tro === 'admin')
               <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Trang quản trị</a>
           @endif</li>

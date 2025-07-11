@@ -10,6 +10,7 @@ use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Admin\StatisticsController;
+use App\Http\Controllers\Client\CommentController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
+Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 // Khu vực quản trị (admin)
 

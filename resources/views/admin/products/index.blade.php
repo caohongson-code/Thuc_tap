@@ -3,6 +3,10 @@
 <div class="container">
     <h1>Danh sách sản phẩm</h1>
     <a href="{{ route('admin.products.create') }}" class="btn btn-primary mb-3">Thêm sản phẩm</a>
+    <form method="GET" action="" class="mb-3 d-flex" style="max-width:400px">
+        <input type="text" name="q" class="form-control me-2" placeholder="Tìm kiếm tên sản phẩm..." value="{{ request('q') }}">
+        <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
+    </form>
     <table class="table table-bordered">
         <thead>
             <tr>

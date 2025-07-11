@@ -12,7 +12,7 @@ class UserController extends Controller
     // Hiển thị danh sách user
     public function index()
     {
-        $users = User::orderByDesc('id')->get();
+        $users = User::orderByDesc('id')->paginate(10);
         return view('admin.users.index', compact('users'));
     }
 

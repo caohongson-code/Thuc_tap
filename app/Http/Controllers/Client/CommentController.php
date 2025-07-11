@@ -24,7 +24,7 @@ class CommentController extends Controller
         $daNhanHang = OrderItem::where('id_sanpham', $productId)
             ->whereHas('order', function ($query) use ($userId) {
                 $query->where('id_KH', $userId)
-                      ->where('trangthai', 'thanhcong');
+                      ->where('trangthai','thanhcong' ,'danhanhang');
             })
             ->exists();
 
@@ -45,7 +45,7 @@ class CommentController extends Controller
     $comment = Comment::findOrFail($id);
 
     // Chỉ cho phép xóa nếu là người tạo
-    if (auth()->id() !== $comment->id_KH) {
+    if (Auth::id() !== $comment->id_KH) {
         abort(403, 'Bạn không có quyền xóa bình luận này.');
     }
 

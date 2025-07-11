@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::all();
+        $categories = Category::orderByDesc('id')->paginate(5);
         return view('admin.categories.index', compact('categories'));
     }
 

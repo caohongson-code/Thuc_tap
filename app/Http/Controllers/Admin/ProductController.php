@@ -14,9 +14,13 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('variants', 'category')->orderByDesc('id')->paginate(10);
+        $query = Product::with('variants', 'category')->orderByDesc('id');
+        if ($request->filled('q')) {
+            $query->where('ten_san_pham', 'like', '%' . $request->q . '%');
+        }
+        $products = $query->paginate(10)->appends(['q' => $request->q]);
         return view('admin.products.index', compact('products'));
     }
 

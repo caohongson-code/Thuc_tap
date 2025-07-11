@@ -3,6 +3,10 @@
 @section('content')
 <div class="container">
     <h2 class="mb-4">Quản lý đơn hàng</h2>
+    <form method="GET" action="" class="mb-3 d-flex" style="max-width:400px">
+        <input type="text" name="q" class="form-control me-2" placeholder="Tìm kiếm tên khách hàng..." value="{{ request('q') }}">
+        <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
+    </form>
     <table class="table table-bordered table-hover">
         <thead>
             <tr>

@@ -45,6 +45,7 @@
             'davanchuyen' => 'Đã vận chuyển',
             'danggiao' => 'Đang giao hàng',
             'thanhcong' => 'Giao hàng thành công',
+            'danhanhang' => 'Đã nhận hàng',
             'hoan_thanh' => 'Hoàn thành',
             'huy' => 'Huỷ thành công',
         ];
@@ -57,6 +58,7 @@
             'davanchuyen', 'primary',
             'daggiao', 'dangiao' => 'primary',
             'thanhcong', 'hoan_thanh' => 'success',
+            'danhanhang' => 'primary',
             'huy' => 'danger',
             default => 'secondary',
         };
@@ -77,13 +79,15 @@
             </button>
         </form>
     @endif
-    @if($order['trangthai'] == 'da_giao_hang')
+    @if($order['trangthai'] == 'thanhcong')
         <form method="POST" action="{{ route('orders.confirmReceived', $order['id']) }}" class="d-inline" onsubmit="return confirm('Bạn chắc chắn đã nhận được hàng?')">
             @csrf
             <button type="submit" class="btn btn-sm btn-success">
                 Tôi đã nhận hàng
             </button>
         </form>
+    @elseif($order['trangthai'] == 'danhanhang')
+        <span class="badge bg-primary">Đã nhận hàng</span>
     @endif
 </td>
 

@@ -64,10 +64,10 @@ $order->save();
     {
         $order = \App\Models\Order::where('id', $id)
             ->where('id_KH', Auth::id())
-            ->where('trangthai', 'danggiao')
+            ->where('trangthai', 'thanhcong')
             ->firstOrFail();
 
-        $order->trangthai = 'thanhcong';
+        $order->trangthai = 'danhanhang';
         $order->save();
 
         return back()->with('success', 'Cảm ơn bạn đã xác nhận đã nhận hàng!');

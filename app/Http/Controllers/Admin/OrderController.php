@@ -23,14 +23,16 @@ class OrderController extends Controller
             'davanchuyen' => 'Đã vận chuyển',
             'danggiao' => 'Đang giao hàng',
             'thanhcong' => 'Giao hàng thành công',
+            'danhanhang' => 'Đã nhận hàng',
             'huy' => 'Huỷ'
         ];
         $nextStatus = [
             'choxuly' => ['daxacnhan', 'huy'],
             'daxacnhan' => ['davanchuyen', 'huy'],
-            'davanchuyen' => ['danggiao', 'huy'],
-            'danggiao' => ['thanhcong', 'huy'],
-            'thanhcong' => [],
+            'davanchuyen' => ['danggiao'],
+            'danggiao' => ['thanhcong'],
+            'thanhcong' => [], // admin không chuyển được nữa, chỉ khách mới chuyển sang 'danhanhang'
+            'danhanhang' => [],
             'huy' => [],
         ];
         $current = $order->trangthai;
@@ -49,7 +51,8 @@ class OrderController extends Controller
             'daxacnhan' => ['davanchuyen', 'huy'],
             'davanchuyen' => ['danggiao', 'huy'],
             'danggiao' => ['thanhcong', 'huy'],
-            'thanhcong' => [],
+            'thanhcong' => [], // admin không chuyển được nữa, chỉ khách mới chuyển sang 'danhanhang'
+            'danhanhang' => [],
             'huy' => [],
         ];
         $current = $order->trangthai;

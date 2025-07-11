@@ -19,13 +19,25 @@ class CategoryController extends Controller
     }
 
     // Hiển thị sản phẩm theo danh mục
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $category = Category::findOrFail($id);
-        $products = Product::where('id_danhmuc', $id)
+        $query = Product::where('id_danhmuc', $id)
                           ->where('trang_thai', 'active')
-                          ->with('category')
-                          ->paginate(12);
+                          ->with('category');
+        // Tìm kiếm theo tên sản phẩm
+        if ($request->filled('search')) {
+            $query->where('ten_san_pham', 'like', '%' . $request->search . '%');
+        }
+        // Lọc theo giá
+        if ($request->sort == 'price_desc') {
+            $query->orderBy('gia_coso', 'desc');
+        } elseif ($request->sort == 'price_asc') {
+            $query->orderBy('gia_coso', 'asc');
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+        $products = $query->paginate(12)->appends($request->all());
         $banners = Banner::all();
         return view('client.categories.show', compact('category', 'products', 'banners'));
     }

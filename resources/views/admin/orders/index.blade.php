@@ -37,6 +37,8 @@
                         <span class="badge bg-primary">Đang giao</span>
                     @elseif($order->trangthai == 'thanhcong')
                         <span class="badge bg-success">Thành công</span>
+                    @elseif($order->trangthai == 'danhanhang')
+                        <span class="badge bg-secondary">Đã nhận hàng</span>
                     @elseif($order->trangthai == 'huy')
                         <span class="badge bg-danger">Đã hủy</span>
                     @endif

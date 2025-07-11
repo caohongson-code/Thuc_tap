@@ -50,6 +50,7 @@ Route::prefix('admin')->name('admin.')->middleware(AdminMiddleware::class)->grou
     Route::resource('/banners',        BannerController::class);
     Route::resource('/users',          UserController::class);
     Route::resource('/statistics',     StatisticsController::class);
+    Route::resource('/comments', App\Http\Controllers\Admin\CommentController::class)->only(['index', 'destroy']);
 
     Route::get('orders', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/{order}', [App\Http\Controllers\Admin\OrderController::class, 'show'])->name('orders.show');

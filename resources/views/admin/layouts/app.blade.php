@@ -77,6 +77,9 @@
             <li class="nav-item">
                 <a href="{{ route('admin.banners.index') }}" class="nav-link"><i data-feather="image" class="me-2"></i>Banner</a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.comments.index') }}" class="nav-link"><i data-feather="message-square" class="me-2"></i>Bình luận</a>
+            </li>
  <a href="{{ route('home') }}" class="nav-link">
     <i data-feather="home" class="me-2"></i>Trang khách
 </a>

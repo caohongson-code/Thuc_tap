@@ -3,16 +3,18 @@
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Client\HomeController;
-use App\Http\Controllers\Client\AuthController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Client\CartController;
-use App\Http\Controllers\Client\CheckoutController;
-use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Admin\StatisticsController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Client\AuthController;
+use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Client\ChatAIController;
+use App\Http\Controllers\Client\CheckoutController;
 use App\Http\Controllers\Client\CommentController;
+use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\OrderController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::post('/giohang/xoa/{itemId}', [CartController::class, 'removeItem'])->name('cart.remove');
@@ -38,6 +40,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
 Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+Route::post('/ai-chat', [ChatAIController::class, 'chat']);
+
 
 // Khu vực quản trị (admin)
 

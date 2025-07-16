@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Banners</h1>
+    <h1>Quản lý Banners</h1>
     <a href="{{ route('admin.banners.create') }}" class="btn btn-primary mb-3">Add New Banner</a>
 
     @if (session('success'))
@@ -28,7 +28,7 @@
                     <td>{{ $banner->hien_thi ? 'Hiển thị' : 'Ẩn' }}</td>
                     <td>
                         <a href="{{ route('admin.banners.edit', $banner->id) }}" class="btn btn-sm btn-warning">Edit</a>
-<form action="{{ route('admin.banners.destroy', $banner->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn muốn xóa banner này chứ???');">
+   <form action="{{ route('admin.banners.destroy', $banner->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bạn muốn xóa banner này chứ???');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>

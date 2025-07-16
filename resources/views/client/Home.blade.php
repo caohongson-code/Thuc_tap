@@ -112,4 +112,75 @@
     {{ $products->links() }}
 </div>
 <br>
+
+<!-- Chat Box AI OpenAI GPT -->
+<div id="ai-chatbox" style="position: fixed; bottom: 24px; right: 24px; z-index: 9999;">
+    <div id="ai-chat-window" style="display: none; width: 350px; height: 420px; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); overflow: hidden; display: flex; flex-direction: column;">
+        <div style="background: #1b1b18; color: #fff; padding: 12px 16px; font-weight: bold;">AI Chatbot <span style="float:right; cursor:pointer;" onclick="document.getElementById('ai-chat-window').style.display='none'">&times;</span></div>
+        <div id="ai-chat-messages" style="flex: 1; padding: 16px; overflow-y: auto; background: #f9f9f9;"></div>
+        <form id="ai-chat-form" style="display: flex; border-top: 1px solid #eee;">
+            <input id="ai-chat-input" type="text" placeholder="Nhập tin nhắn..." style="flex:1; border:none; padding: 12px; outline:none;">
+            <button type="submit" style="background: #1b1b18; color: #fff; border:none; padding: 0 20px; cursor:pointer;">Gửi</button>
+        </form>
+    </div>
+    <button id="ai-chat-toggle" style="width: 56px; height: 56px; border-radius: 50%; background: #1b1b18; color: #fff; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.18); font-size: 28px; cursor: pointer;">💬</button>
+</div>
+
+<script>
+    const chatToggle = document.getElementById('ai-chat-toggle');
+    const chatWindow = document.getElementById('ai-chat-window');
+    const chatForm = document.getElementById('ai-chat-form');
+    const chatInput = document.getElementById('ai-chat-input');
+    const chatMessages = document.getElementById('ai-chat-messages');
+
+    chatToggle.onclick = function() {
+        chatWindow.style.display = 'flex';
+        chatInput.focus();
+    };
+
+    chatForm.onsubmit = async function(e) {
+        e.preventDefault();
+        const userMsg = chatInput.value.trim();
+        if (!userMsg) return;
+        appendMessage('Bạn', userMsg, true);
+        chatInput.value = '';
+        chatInput.disabled = true;
+        // Gửi lên server
+        try {
+            const res = await fetch('/ai-chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ message: userMsg })
+            });
+            const data = await res.json();
+            let aiText = "Không có phản hồi";
+            if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0].text) {
+                aiText = data.candidates[0].content.parts[0].text;
+            }
+            appendMessage('AI', aiText, false);
+        } catch (err) {
+            appendMessage('AI', 'Lỗi kết nối server!', false);
+        }
+        chatInput.disabled = false;
+        chatInput.focus();
+    };
+
+    function appendMessage(sender, text, isUser) {
+        const msg = document.createElement('div');
+        msg.style.margin = '8px 0';
+        msg.style.display = 'flex';
+        msg.style.justifyContent = isUser ? 'flex-end' : 'flex-start';
+        msg.innerHTML = `<div style="max-width: 70%; padding: 10px 16px; border-radius: 16px; background: ${isUser ? '#1b1b18' : '#eee'}; color: ${isUser ? '#fff' : '#222'}; font-size: 15px;">${text}</div>`;
+        chatMessages.appendChild(msg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Đảm bảo chat window luôn ẩn khi load lại trang
+    window.onload = function() {
+        chatWindow.style.display = 'none';
+    };
+</script>
 @endsection
